@@ -62,6 +62,7 @@ def write_dataframe_to_csv(df, output_file):
     df.to_csv(output_file, index=False, encoding='utf-8')
 
 
+# Plot cumulative time spent in space over years
 def plot_cumulative_time_in_space(df, graph_file):
     """
     Plot the cumulative time in space over years. 
@@ -73,7 +74,6 @@ def plot_cumulative_time_in_space(df, graph_file):
         df (pd.DataFrame): the input dataframe
         graph_file (file or str): The file object or path to the graph output.
     """
-    # Plot cumulative time spent in space over years
     print(f'Plotting cumulative spacewalk duration and saving to {graph_file}')
     df = add_duration_hours(df)
     df['cumulative_time'] = df['duration_hours'].cumsum()
