@@ -16,6 +16,8 @@ input_file = open('./eva-data.json', 'r', encoding='ascii')
 output_file = open('./eva-data.csv', 'w', encoding='utf-8')
 graph_file = './cumulative_eva_graph.png'
 
+print("--START--")
+print(f'Reading JSON file {input_file}')
 
 # Read the JSON data into a DataFrame, convert 'eva' to float, and drop rows with missing 'duration' or 'date'
 eva_df = pd.read_json(input_file, convert_dates=['date'], encoding='ascii')
@@ -23,6 +25,7 @@ eva_df['eva'] = eva_df['eva'].astype(float)
 eva_df.dropna(axis=0, subset=['duration', 'date'], inplace=True)
 
 # Save the processed DataFrame to a CSV file
+print(f'Saving to csv file {output_file}')
 eva_df.to_csv(output_file, index=False, encoding='utf-8')
 
 # Sort the DataFrame by date, convert 'duration' to hours, and calculate the cumulative time spent in space
@@ -31,9 +34,11 @@ eva_df['duration_hours'] = eva_df['duration'].str.split(":").apply(lambda x: int
 eva_df['cumulative_time'] = eva_df['duration_hours'].cumsum()
 
 # Plot the cumulative time spent in space over the years
+print(f'Plotting cumulative time spent in space over the years and saving to {graph_file}')
 plt.plot(eva_df['date'], eva_df['cumulative_time'], 'ko-')
 plt.xlabel('Year')
 plt.ylabel('Total time spent in space to date (hours)')
 plt.tight_layout()
 plt.savefig(graph_file)
 plt.show()
+print("--END--")
