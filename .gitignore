@@ -2,3 +2,7 @@ venv_spacewalks/
 **/.DS_Store
 *.csv
 *.png
+*.vscode
+.coverage
+__pycache__
+.pytest_cache
